@@ -1,0 +1,131 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Resources\QuoteResource;
+use Illuminate\Http\Request;
+use App\Models\Quote;
+use Illuminate\Support\Facades\Validator;
+
+class QuoteController extends Controller
+{
+
+    
+    
+    public function index()
+    {
+        //return response()->json(["message"=>"index"]);
+        $Quotes=Quote::get();
+        return QuoteResource::collection($Quotes);
+    }
+
+    
+    public function store(Request $request)
+    {
+        $validator=Validator::make($request->all(),[
+            'content_text'=>'required|min:3|string',
+            'source'=>'required|min:6|string',
+            'auteur'=>'required|min:6|string'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+
+        $quote=Quote::create([
+            'content_text'=>$request->content_text,
+            'source'=>$request->source,
+            'user_id'=>auth()->user()->id,
+            'nombre_mots'=>str_word_count($request->content_text),
+            'nombre_vues'=>0,
+            'auteur'=>$request->auteur
+        ]);
+        return new QuoteResource($quote);
+    }
+
+    
+    public function show(string $id)
+    {
+        //return response()->json('show');
+        $user_id=auth()->user()->id;
+        $quote=Quote::where('user_id',$user_id)->get();
+        if($quote){
+            return new QuoteResource($quote);
+        }
+        return response()->json(['message'=>'Quote not found'],404);
+    }
+
+    public function showQuote($id){
+        $quote=Quote::where('id',$id)->first();
+        $quote->increment('nombre_vues');
+        return response()->json(['Quote'=>$quote]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+
+        
+
+        $validator=Validator::make($request->all(),[
+            'content_text'=>'required|min:3|string',
+            'source'=>'required|min:6|string',
+            'auteur'=>'required|min:6|string'
+        ]);
+        
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+
+        $quote=Quote::find($id);
+        if($quote){
+            $quote->update([
+                'content_text'=>$request->content_text,
+                'source'=>$request->source,
+                'nombre_mots'=>str_word_count($request->content_text),
+                'auteur'=>$request->auteur
+            ]);
+            return new QuoteResource($quote);
+        }
+        return response()->json(['message'=>'Quote not found'],404);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+
+    public function destroy(Request $request,string $id)
+    {
+        
+        $quotes=$request->user()->quotes->where('id',$id)->first();
+
+        if(!$quotes){
+            return response()->json(['cette quotes n existe pas'],401);
+        }
+        $quotes->delete();
+        return response()->json(['message'=>"quote a été supprimé"],200);
+    }
+
+
+    public function randomQuote($NombreQuotes){
+        $quote= Quote::inRandomOrder()->take($NombreQuotes)->get();
+        
+        return response()->json(["quote"=>$quote]);
+    }
+
+
+    public function fliterQuotesNombreMot($max_mots){
+        //return response()->json('testFilter');
+        $quotes = Quote::where('nombre_mots','<',$max_mots)->get();
+        return response()->json(['Quotes'=>$quotes]);
+    }
+
+    public function getQuotePlusPopulaire(){
+        $quotes=Quote::orderBy('nombre_vues','desc')->limit(3)->get();
+        return response()->json(["quotes"=>$quotes],200);
+    }
+
+    
+}
