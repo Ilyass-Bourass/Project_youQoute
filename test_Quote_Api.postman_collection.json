@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "c8983050-0d22-41cf-85ea-a04156c4dcea",
+		"name": "Quote_Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "42977408"
+	},
+	"item": [
+		{
+			"name": "Authentification Sanctum",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/login?email=ilyass@gmail.com&password=123456789",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "ilyass@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": "123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "mAE3nWHmS2yf4wiS1fVEkhYEdfyiCVGReZcoY5Iy26bd9d2a"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://127.0.0.1:8000/api/logout"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "BxSUioSNMUDmKQ0QimYLXLTBFel29PQ0PJo6E1Gk1c43cecd"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"ilyass\",\r\n    \"email\":\"ilyass02@gmail.com\",\r\n    \"password\":\"123456789\",\r\n    \"password_confirmation\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/register"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Crud quotes User",
+			"item": [
+				{
+					"name": "Create Quote",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "OK3RweZPCuuMYsHn7cvn3eAptoN4stESGBTfXTLK9041458e"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content_text\":\"had chi mezyane\",\r\n    \"source\":\"ktab 9dim\",\r\n    \"auteur\":\"faylasof adil\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/quotes"
+					},
+					"response": []
+				},
+				{
+					"name": "update Quote",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "OK3RweZPCuuMYsHn7cvn3eAptoN4stESGBTfXTLK9041458e"
+							}
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content_text\":\"hadi ahsan haja\",\r\n    \"source\":\"wahd ktab\",\r\n    \"auteur\":\"ilyass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/quotes/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Quote",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "RD6CkoVHEFPJ2YBesDcbTJ5QNcwdjZAZfYYo4IAD613d18fb"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://127.0.0.1:8000/api/quotes/2"
+					},
+					"response": []
+				},
+				{
+					"name": "show Quotes user authentifié",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autres opérations",
+			"item": [
+				{
+					"name": "randomQuote",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/randomQuote/2"
+					},
+					"response": []
+				},
+				{
+					"name": "fliterQuotesNombreMaxMot",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/fliterQuotesNombreMot/3"
+					},
+					"response": []
+				},
+				{
+					"name": "fliterQuotesNombreMaxMot Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/getQuotesPlusPopulaire"
+					},
+					"response": []
+				},
+				{
+					"name": "showQuote",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/getQuotesPlusPopulaire"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
