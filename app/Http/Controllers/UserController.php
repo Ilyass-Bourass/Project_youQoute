@@ -44,17 +44,12 @@ class UserController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-        if(Auth::attempt($request->only('email','password'))){
-            $user=Auth::user();
-            $token = $user->createToken('auth_token')->plainTextToken;
-            return response()->json(['token' => $token, 'user' => $user], 200);
-        }else{
+        if(!Auth::attempt($request->only('email','password'))){
             return response()->json(['message'=>'email ou password incorrect'],401);
         }
-
-        $user=$request->user();
-        $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json(['token' => $token, 'user' => $user], 200);
+        $user=Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
+            return response()->json(['token' => $token, 'user' => $user], 200);
     }
 
     public function logout(Request $request){

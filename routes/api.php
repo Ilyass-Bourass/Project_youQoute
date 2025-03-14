@@ -24,7 +24,8 @@ Route::post('/login',[UserController::class,'login']);
 Route::get('/showQuote/{id}',[QuoteController::class,'showquote']);
 Route::get('/randomQuote/{NombreQuotes}',[QuoteController::class,'randomQuote']);
 Route::get('fliterQuotesNombreMot/{Nombre_max_mots}',[QuoteController::class,'fliterQuotesNombreMot']);
-Route::get('getQuotePlusPopulaire',[QuoteController::class,'getQuotePlusPopulaire']);
+Route::get('getQuotesPlusPopulaire',[QuoteController::class,'getQuotesPlusPopulaire']);
+
 
 
 // Route::get('/test',function(){

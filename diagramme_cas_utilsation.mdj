@@ -1230,11 +1230,11 @@
 											"fillColor": "#60FF60",
 											"font": "Arial;13;1",
 											"parentStyle": true,
-											"left": 464.5,
+											"left": 475.5,
 											"top": 172,
-											"width": 199,
+											"width": 252,
 											"height": 13,
-											"text": "filtrer des citations par longueur"
+											"text": "filtrer des citations par longueur de mots"
 										},
 										{
 											"_type": "LabelView",
@@ -1271,9 +1271,9 @@
 									"fillColor": "#60FF60",
 									"font": "Arial;13;0",
 									"parentStyle": true,
-									"left": 459.5,
+									"left": 470.5,
 									"top": 165,
-									"width": 209.3671875,
+									"width": 262.82080078125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGVgfToHZ99LgI="
@@ -1385,7 +1385,7 @@
 							"containerChangeable": true,
 							"left": 416,
 							"top": 160,
-							"width": 296,
+							"width": 371,
 							"height": 35,
 							"nameCompartment": {
 								"$ref": "AAAAAAGVgfToHZ98668="
@@ -2216,7 +2216,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": false,
 									"left": 280,
-									"top": 145,
+									"top": 144,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -2238,7 +2238,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": false,
 									"left": 281,
-									"top": 130,
+									"top": 129,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -2260,7 +2260,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": false,
 									"left": 279,
-									"top": 174,
+									"top": 173,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -2348,7 +2348,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": false,
 									"left": 389,
-									"top": 149,
+									"top": 148,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -2369,7 +2369,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": false,
 									"left": 387,
-									"top": 135,
+									"top": 134,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -2390,7 +2390,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": false,
 									"left": 392,
-									"top": 176,
+									"top": 175,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -2438,7 +2438,7 @@
 								"$ref": "AAAAAAGVgfRZ856gp5E="
 							},
 							"lineStyle": 1,
-							"points": "145:161;415:171",
+							"points": "145:161;415:170",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGVgfbib6IcvWg="
@@ -9153,7 +9153,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGVgfP2755/uTs="
 					},
-					"name": "filtrer des citations par longueur"
+					"name": "filtrer des citations par longueur de mots"
 				},
 				{
 					"_type": "UMLUseCase",

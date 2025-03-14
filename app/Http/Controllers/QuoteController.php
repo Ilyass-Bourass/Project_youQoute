@@ -44,20 +44,21 @@ class QuoteController extends Controller
     }
 
     
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //return response()->json('show');
-        $user_id=auth()->user()->id;
-        $quote=Quote::where('user_id',$user_id)->get();
-        if($quote){
-            return new QuoteResource($quote);
+        $quotes=$request->user()->quotes()->get();
+        if($quotes){
+            return new QuoteResource($quotes);
         }
         return response()->json(['message'=>'Quote not found'],404);
     }
 
     public function showQuote($id){
         $quote=Quote::where('id',$id)->first();
-        $quote->increment('nombre_vues');
+        if($quote){
+           $quote->increment('nombre_vues'); 
+        }else{}
+        
         return response()->json(['Quote'=>$quote]);
     }
 
@@ -102,7 +103,7 @@ class QuoteController extends Controller
         $quotes=$request->user()->quotes->where('id',$id)->first();
 
         if(!$quotes){
-            return response()->json(['cette quotes n existe pas'],401);
+            return response()->json(['cette quotes n existe pas ou bien c est pas de toi'],401);
         }
         $quotes->delete();
         return response()->json(['message'=>"quote a été supprimé"],200);
@@ -118,11 +119,11 @@ class QuoteController extends Controller
 
     public function fliterQuotesNombreMot($max_mots){
         //return response()->json('testFilter');
-        $quotes = Quote::where('nombre_mots','<',$max_mots)->get();
+        $quotes = Quote::where('nombre_mots','<=',$max_mots)->get();
         return response()->json(['Quotes'=>$quotes]);
     }
 
-    public function getQuotePlusPopulaire(){
+    public function getQuotesPlusPopulaire(){
         $quotes=Quote::orderBy('nombre_vues','desc')->limit(3)->get();
         return response()->json(["quotes"=>$quotes],200);
     }
