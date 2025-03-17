@@ -6,24 +6,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 
 
 {
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        //dd($request->all());
-        $validator=Validator::make($request->all(),[
-            'name'=>'required|min:3|string',
-            'email'=>'required|email',
-            'password'=>'required|min:6|confirmed'
-        ]);
-        if($validator->fails()){
-            return response()->json($validator->errors(),400);
-        }
-
         $user=User::create([
             'name'=>$request->name,
             'email'=>$request->email,
@@ -34,15 +26,9 @@ class UserController extends Controller
         return response()->json(['token' => $token, 'user' => $user], 201);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $validator=Validator::make($request->all(),[
-            'email'=>'required|email',
-            'password'=>'required'
-        ]);
-        if($validator->fails()){
-            return response()->json($validator->errors(),400);
-        }
+        
 
         if(!Auth::attempt($request->only('email','password'))){
             return response()->json(['message'=>'email ou password incorrect'],401);

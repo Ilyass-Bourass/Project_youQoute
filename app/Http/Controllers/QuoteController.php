@@ -5,18 +5,34 @@ namespace App\Http\Controllers;
 use App\Http\Resources\QuoteResource;
 use Illuminate\Http\Request;
 use App\Models\Quote;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+
 
 class QuoteController extends Controller
 {
-
+    use AuthorizesRequests;
     
     
     public function index()
     {
         //return response()->json(["message"=>"index"]);
-        $Quotes=Quote::get();
-        return QuoteResource::collection($Quotes);
+
+        
+        try{
+            $this->authorize('index',Quote::class);
+            $Quotes=Quote::get();
+            return QuoteResource::collection($Quotes);
+
+        }catch(AuthorizationException $e){
+             return response()->json(["message"=>'Vous n avez pas la possibilité de voir ça'],403);
+        }
+        
+
+        
     }
 
     

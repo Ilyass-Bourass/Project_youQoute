@@ -23,4 +23,12 @@ class Quote extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function categorie(){
+        return $this->belongsToMany(category::class);
+    }
+
+    public function tag(){
+        return $this->belongsToMany(tag::class);
+    }
 }

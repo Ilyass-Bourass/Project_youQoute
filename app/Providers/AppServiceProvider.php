@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Quote;
+use App\Policies\QuotePolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -9,6 +12,8 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+
+
     public function register(): void
     {
         //
@@ -19,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+          //  Gate::policy(Quote::class,QuotePolicy::class);
     }
 }
