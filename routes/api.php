@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MesFavoriteController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
@@ -19,6 +20,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/addLike/{id_quote}',[LikeController::class,'addLike']);
     Route::post('/deleteLike/{id_quote}',[LikeController::class,'deleteLike']);
+
+    Route::post('/addMesFaovorite/{id}',[MesFavoriteController::class,'addMesFaovorite']);
+    Route::post('/deleteMesFavorite/{id}',[MesFavoriteController::class,'deleteMesFavorite']);
+    Route::post('/showMesFaorite',[MesFavoriteController::class,'showMesFaorite']);
         
     Route::middleware('role:admin')->group(function () {
     Route::apiResource('categories', CategoryController::class);
