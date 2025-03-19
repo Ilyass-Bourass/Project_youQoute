@@ -31,4 +31,8 @@ class Quote extends Model
     public function tags(){
         return $this->belongsToMany(tag::class,'tags_quotes')->withTimestamps();
     }
+
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
 }

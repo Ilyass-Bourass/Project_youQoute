@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
@@ -15,6 +16,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::post('/addLike/{id_quote}',[LikeController::class,'addLike']);
+    Route::post('/deleteLike/{id_quote}',[LikeController::class,'deleteLike']);
+        
     Route::middleware('role:admin')->group(function () {
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('tags', TagController::class);
