@@ -24,11 +24,11 @@ class Quote extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function categorie(){
-        return $this->belongsToMany(category::class);
+    public function categories(){
+        return $this->belongsToMany(category::class,'categories_quotes');
     }
 
-    public function tag(){
-        return $this->belongsToMany(tag::class);
+    public function tags(){
+        return $this->belongsToMany(tag::class,'tags_quotes')->withTimestamps();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\QuoteResource;
 use Illuminate\Http\Request;
 use App\Models\Quote;
+use App\Models\Tag;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -31,8 +32,6 @@ class QuoteController extends Controller
              return response()->json(["message"=>'Vous n avez pas la possibilité de voir ça'],403);
         }
         
-
-        
     }
 
     
@@ -40,9 +39,15 @@ class QuoteController extends Controller
     {
         $validator=Validator::make($request->all(),[
             'content_text'=>'required|min:3|string',
-            'source'=>'required|min:6|string',
-            'auteur'=>'required|min:6|string'
+            'source'=>'required|min:4|string',
+            'auteur'=>'required|min:4|string',
+            'tags' => 'required|array',
+            'tags.*'=>'exists:tags,id',
+            'categories' => 'required|array',
+            'categories.*'=>'exists:categories,id'
         ]);
+
+       // return response('valide');
 
         if($validator->fails()){
             return response()->json($validator->errors(),400);
@@ -56,6 +61,12 @@ class QuoteController extends Controller
             'nombre_vues'=>0,
             'auteur'=>$request->auteur
         ]);
+        foreach($request->tags as $tagid){
+            $quote->tags()->attach($tagid);
+        }
+        foreach($request->categories as $tagid){
+            $quote->categories()->attach($tagid);
+        }
         return new QuoteResource($quote);
     }
 
@@ -85,7 +96,8 @@ class QuoteController extends Controller
     {
 
         
-
+        $quote=Quote::find($id);
+        $this->authorize('update',$quote);
         $validator=Validator::make($request->all(),[
             'content_text'=>'required|min:3|string',
             'source'=>'required|min:6|string',
@@ -96,7 +108,6 @@ class QuoteController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-        $quote=Quote::find($id);
         if($quote){
             $quote->update([
                 'content_text'=>$request->content_text,
@@ -115,13 +126,12 @@ class QuoteController extends Controller
 
     public function destroy(Request $request,string $id)
     {
-        
-        $quotes=$request->user()->quotes->where('id',$id)->first();
+        $quote=Quote::find($id);
+        $this->authorize('delete',$quote);
+        //$quotes=$request->user()->quotes->where('id',$id)->first();
 
-        if(!$quotes){
-            return response()->json(['cette quotes n existe pas ou bien c est pas de toi'],401);
-        }
-        $quotes->delete();
+        
+        $quote->delete();
         return response()->json(['message'=>"quote a été supprimé"],200);
     }
 

@@ -11,11 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags_quotes',function(Blueprint $table){
-            $table->foreignId('tag_id')->references('id')->on('tags')->onDelete('cascade');
-            $table->foreignId('quote_id')->references('id')->on('quotes')->onDelete('cascade');
-            $table->timestamps();
-        });
+        //
     }
 
     /**
@@ -23,6 +19,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags_quotes');
+        Schema::create('categories_quotes',function(Blueprint $table){
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('quote_id')->references('id')->on('quotes')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 };

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -12,6 +14,16 @@ use App\Http\Controllers\UserController;
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
+    });
+    Route::middleware('role:admin')->group(function () {
+    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('tags', TagController::class);
+    });
+
+    Route::middleware('role:user')->group(function(){
+        Route::get('testUser',function(){
+            return response()->json(['message'=>'testUser']);
+        });
     });
     Route::post('logout',[UserController::class,'logout']);
     Route::apiResource('quotes', QuoteController::class);

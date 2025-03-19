@@ -8,8 +8,8 @@ class Tag extends Model
 {
     protected $fillable =['name'];
 
-    public function quote(){
-        return $this->belongsToMany(Quote::class);
+    public function quotes(){
+        return $this->belongsToMany(Quote::class,'tags_quotes')->withTimestamps();
     }
     
 }

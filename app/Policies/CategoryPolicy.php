@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Quote;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class QuotePolicy
+class CategoryPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -16,7 +16,7 @@ class QuotePolicy
         return false;
     }
 
-    public function index(User $user): bool
+    public function store(User $user) :bool
     {
         return $user->role==='admin';
     }
@@ -24,7 +24,7 @@ class QuotePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Quote $quote): bool
+    public function view(User $user, Category $category): bool
     {
         return false;
     }
@@ -40,25 +40,23 @@ class QuotePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Quote $quote): bool
+    public function update(User $user, Category $category): bool
     {
-        //return $user->id===$quote->user_id;
-        return ($user->id===$quote->user_id || $user->role==='admin');
-
+        return false;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Quote $quote): bool
+    public function delete(User $user, Category $category): bool
     {
-        return ($user->id===$quote->user_id || $user->role==='admin');
+        return false;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Quote $quote): bool
+    public function restore(User $user, Category $category): bool
     {
         return false;
     }
@@ -66,7 +64,7 @@ class QuotePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Quote $quote): bool
+    public function forceDelete(User $user, Category $category): bool
     {
         return false;
     }
